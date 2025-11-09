@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CurrencyExchangeMobile.Views.DashboardPage"
+             Title="Dashboard"
+             BackgroundColor="#f8f9fa">
+
+    <ScrollView>
+        <StackLayout Padding="20">
+
+            <!-- Welcome Header -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True"
+                   Margin="0,0,0,20">
+                <StackLayout>
+                    <Label Text="Welcome back!" 
+                           FontSize="18" 
+                           TextColor="#7f8c8d"/>
+                    <Label x:Name="UsernameLabel" 
+                           Text="Loading..." 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="#2c3e50"
+                           Margin="0,5,0,0"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Balance Card -->
+            <Frame BackgroundColor="#3498db" 
+                   CornerRadius="15" 
+                   Padding="25" 
+                   HasShadow="True"
+                   Margin="0,0,0,25">
+                <StackLayout>
+                    <Label Text="Your Balance" 
+                           FontSize="16" 
+                           TextColor="White" 
+                           Opacity="0.9"/>
+                    <Label x:Name="BalanceLabel" 
+                           Text="Loading..." 
+                           FontSize="36" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           Margin="0,5,0,5"/>
+                    <Label Text="Available for trading" 
+                           FontSize="14" 
+                           TextColor="White" 
+                           Opacity="0.8"/>
+
+                    <!-- Refresh Balance Button -->
+                    <Button x:Name="RefreshBalanceButton"
+                            Text="↻ Refresh"
+                            BackgroundColor="White"
+                            TextColor="#3498db"
+                            CornerRadius="8"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            Margin="0,15,0,0"
+                            HeightRequest="40"
+                            Clicked="OnRefreshBalanceClicked"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Quick Actions -->
+            <StackLayout Margin="0,0,0,25">
+                <Label Text="Quick Actions" 
+                       FontSize="20" 
+                       FontAttributes="Bold" 
+                       TextColor="#2c3e50"
+                       Margin="0,0,0,15"/>
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+
+                    <!-- Top Up Action -->
+                    <Frame Grid.Column="0" 
+                           BackgroundColor="White" 
+                           CornerRadius="12" 
+                           Padding="15" 
+                           HasShadow="True">
+                        <StackLayout>
+                            <Label Text="💰" 
+                                   FontSize="30" 
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Top Up" 
+                                   FontSize="12" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#2c3e50"
+                                   HorizontalOptions="Center"
+                                   Margin="0,8,0,0"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTopUpTapped"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                    <!-- Exchange Action -->
+                    <Frame Grid.Column="1" 
+                           BackgroundColor="White" 
+                           CornerRadius="12" 
+                           Padding="15" 
+                           HasShadow="True">
+                        <StackLayout>
+                            <Label Text="🔄" 
+                                   FontSize="30" 
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Trade" 
+                                   FontSize="12" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#2c3e50"
+                                   HorizontalOptions="Center"
+                                   Margin="0,8,0,0"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTradeTapped"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                    <!-- History Action -->
+                    <Frame Grid.Column="2" 
+                           BackgroundColor="White" 
+                           CornerRadius="12" 
+                           Padding="15" 
+                           HasShadow="True">
+                        <StackLayout>
+                            <Label Text="📊" 
+                                   FontSize="30" 
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Rates" 
+                                   FontSize="12" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#2c3e50"
+                                   HorizontalOptions="Center"
+                                   Margin="0,8,0,0"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRatesTapped"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                </Grid>
+            </StackLayout>
+
+            <!-- Current Rates Preview -->
+            <StackLayout>
+                <Label Text="Current Exchange Rates" 
+                       FontSize="20" 
+                       FontAttributes="Bold" 
+                       TextColor="#2c3e50"
+                       Margin="0,0,0,15"/>
+
+                <Frame BackgroundColor="White" 
+                       CornerRadius="15" 
+                       Padding="20" 
+                       HasShadow="True">
+
+                    <StackLayout x:Name="RatesContainer">
+
+                        <!-- Loading Indicator -->
+                        <StackLayout x:Name="RatesLoadingContainer" 
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    Margin="0,20,0,20">
+                            <ActivityIndicator x:Name="RatesLoadingIndicator" 
+                                             IsRunning="True" 
+                                             IsVisible="True"
+                                             Color="#3498db"/>
+                            <Label Text="Loading exchange rates..." 
+                                   FontSize="14" 
+                                   TextColor="#7f8c8d"
+                                   HorizontalOptions="Center"
+                                   Margin="0,10,0,0"/>
+                        </StackLayout>
+
+                        <!-- Rates will be added here programmatically -->
+                        <StackLayout x:Name="RatesListContainer" IsVisible="False">
+                            <!-- Dynamic content -->
+                        </StackLayout>
+
+                        <!-- View All Rates Button -->
+                        <Button x:Name="ViewAllRatesButton"
+                                Text="View All Rates →"
+                                BackgroundColor="#3498db"
+                                TextColor="White"
+                                CornerRadius="8"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                Margin="0,15,0,0"
+                                IsVisible="False"
+                                Clicked="OnViewAllRatesClicked"/>
+
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

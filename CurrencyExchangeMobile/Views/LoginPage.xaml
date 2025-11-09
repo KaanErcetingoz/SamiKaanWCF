@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CurrencyExchangeMobile.Views.LoginPage"
+             Title="Currency Exchange"
+             BackgroundColor="#667eea">
+
+    <ScrollView>
+        <StackLayout Padding="30" VerticalOptions="CenterAndExpand">
+
+            <!-- Header Section -->
+            <StackLayout Orientation="Horizontal" 
+                        HorizontalOptions="Center" 
+                        Margin="0,0,0,50">
+                <Label Text="💱" 
+                       FontSize="70" 
+                       VerticalOptions="Center"/>
+                <StackLayout VerticalOptions="Center" Margin="15,0,0,0">
+                    <Label Text="Currency Exchange" 
+                           FontSize="28" 
+                           FontAttributes="Bold" 
+                           TextColor="White"/>
+                    <Label Text="Trade with real NBP rates" 
+                           FontSize="16" 
+                           TextColor="White" 
+                           Opacity="0.9"/>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Login Form Card -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="25" 
+                   HasShadow="True"
+                   Margin="0,0,0,20">
+
+                <StackLayout>
+
+                    <!-- Tab Buttons -->
+                    <Grid ColumnDefinitions="*,*" Margin="0,0,0,25">
+                        <Button x:Name="LoginTabButton" 
+                                Text="Login" 
+                                Grid.Column="0" 
+                                BackgroundColor="#3498db" 
+                                TextColor="White" 
+                                CornerRadius="8"
+                                FontAttributes="Bold"
+                                Clicked="OnLoginTabClicked" />
+                        <Button x:Name="RegisterTabButton" 
+                                Text="Register" 
+                                Grid.Column="1" 
+                                BackgroundColor="#ecf0f1" 
+                                TextColor="#7f8c8d" 
+                                CornerRadius="8"
+                                FontAttributes="Bold"
+                                Clicked="OnRegisterTabClicked" />
+                    </Grid>
+
+                    <!-- Username Input -->
+                    <Frame BackgroundColor="#f8f9fa" 
+                           CornerRadius="8" 
+                           Padding="0" 
+                           HasShadow="False"
+                           Margin="0,0,0,15">
+                        <Entry x:Name="UsernameEntry" 
+                               Placeholder="Username" 
+                               PlaceholderColor="#95a5a6"
+                               TextColor="#2c3e50"
+                               BackgroundColor="Transparent"
+                               FontSize="16"/>
+                    </Frame>
+
+                    <!-- Email Input (Initially Hidden) -->
+                    <Frame x:Name="EmailFrame"
+                           BackgroundColor="#f8f9fa" 
+                           CornerRadius="8" 
+                           Padding="0" 
+                           HasShadow="False"
+                           Margin="0,0,0,15"
+                           IsVisible="False">
+                        <Entry x:Name="EmailEntry" 
+                               Placeholder="Email Address" 
+                               PlaceholderColor="#95a5a6"
+                               TextColor="#2c3e50"
+                               BackgroundColor="Transparent"
+                               Keyboard="Email"
+                               FontSize="16"/>
+                    </Frame>
+
+                    <!-- Password Input -->
+                    <Frame BackgroundColor="#f8f9fa" 
+                           CornerRadius="8" 
+                           Padding="0" 
+                           HasShadow="False"
+                           Margin="0,0,0,25">
+                        <Entry x:Name="PasswordEntry" 
+                               Placeholder="Password" 
+                               PlaceholderColor="#95a5a6"
+                               TextColor="#2c3e50"
+                               BackgroundColor="Transparent"
+                               IsPassword="True"
+                               FontSize="16"/>
+                    </Frame>
+
+                    <!-- Action Button -->
+                    <Button x:Name="ActionButton" 
+                            Text="Login" 
+                            BackgroundColor="#3498db" 
+                            TextColor="White" 
+                            CornerRadius="10" 
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            HeightRequest="50"
+                            Clicked="OnActionButtonClicked" />
+
+                    <!-- Loading Indicator -->
+                    <ActivityIndicator x:Name="LoadingIndicator" 
+                                      IsVisible="False" 
+                                      IsRunning="False"
+                                      Color="#3498db"
+                                      Margin="0,20,0,0"/>
+
+                    <!-- Status Message -->
+                    <Label x:Name="StatusLabel" 
+                           Text="" 
+                           TextColor="#e74c3c" 
+                           FontSize="14"
+                           HorizontalOptions="Center"
+                           Margin="0,15,0,0"
+                           IsVisible="False"/>
+
+                </StackLayout>
+            </Frame>
+
+            <!-- App Info -->
+            <StackLayout HorizontalOptions="Center" Margin="0,20,0,0">
+                <Label Text="Secure • Fast • Real-time rates" 
+                       TextColor="White" 
+                       FontSize="14" 
+                       Opacity="0.8"
+                       HorizontalOptions="Center"/>
+                <Label Text="Powered by NBP API" 
+                       TextColor="White" 
+                       FontSize="12" 
+                       Opacity="0.7"
+                       HorizontalOptions="Center"
+                       Margin="0,5,0,0"/>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

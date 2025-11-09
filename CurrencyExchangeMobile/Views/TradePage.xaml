@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CurrencyExchangeMobile.Views.TradePage"
+             Title="Trade Currency"
+             BackgroundColor="#f8f9fa">
+
+    <ScrollView Padding="20">
+        <StackLayout>
+
+            <!-- Balance Display -->
+            <Frame BackgroundColor="#3498db" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True"
+                   Margin="0,0,0,25">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Available Balance:" 
+                           FontSize="16" 
+                           TextColor="White" 
+                           VerticalOptions="Center"/>
+                    <Label x:Name="BalanceLabel" 
+                           Text="Loading..." 
+                           FontSize="20" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           VerticalOptions="Center"
+                           Margin="10,0,0,0"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Buy/Sell Toggle -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="0" 
+                   HasShadow="True"
+                   Margin="0,0,0,25">
+                <Grid ColumnDefinitions="*,*">
+                    <Button x:Name="BuyButton" 
+                            Text="BUY" 
+                            Grid.Column="0" 
+                            BackgroundColor="#27ae60" 
+                            TextColor="White" 
+                            CornerRadius="15"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Clicked="OnBuyTabClicked" />
+                    <Button x:Name="SellButton" 
+                            Text="SELL" 
+                            Grid.Column="1" 
+                            BackgroundColor="#ecf0f1" 
+                            TextColor="#7f8c8d" 
+                            CornerRadius="15"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Clicked="OnSellTabClicked" />
+                </Grid>
+            </Frame>
+
+            <!-- Trading Form -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="25" 
+                   HasShadow="True">
+
+                <StackLayout>
+
+                    <!-- Currency Selection -->
+                    <Label Text="Select Currency" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           TextColor="#2c3e50"
+                           Margin="0,0,0,10"/>
+
+                    <ScrollView Orientation="Horizontal" 
+                               HorizontalScrollBarVisibility="Never"
+                               Margin="0,0,0,20">
+                        <StackLayout x:Name="CurrencySelectionContainer" 
+                                    Orientation="Horizontal" 
+                                    Spacing="10">
+                            <!-- Currency buttons will be added dynamically -->
+                        </StackLayout>
+                    </ScrollView>
+
+                    <!-- Amount Input -->
+                    <Label Text="Amount" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           TextColor="#2c3e50"
+                           Margin="0,0,0,10"/>
+
+                    <Frame BackgroundColor="#f8f9fa" 
+                           CornerRadius="10" 
+                           Padding="0" 
+                           HasShadow="False"
+                           Margin="0,0,0,20">
+                        <Entry x:Name="AmountEntry" 
+                               Placeholder="0.00" 
+                               PlaceholderColor="#95a5a6"
+                               TextColor="#2c3e50"
+                               BackgroundColor="Transparent"
+                               Keyboard="Numeric"
+                               FontSize="16"
+                               TextChanged="OnAmountChanged"/>
+                    </Frame>
+
+                    <!-- Price Calculation -->
+                    <Frame x:Name="CalculationFrame"
+                           BackgroundColor="#f8f9fa" 
+                           CornerRadius="10" 
+                           Padding="20" 
+                           HasShadow="False"
+                           Margin="0,0,0,20"
+                           IsVisible="False">
+
+                        <StackLayout>
+                            <Label Text="Price Calculation" 
+                                   FontSize="16" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#2c3e50"
+                                   Margin="0,0,0,10"/>
+
+                            <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,5">
+                                <Label Grid.Column="0" 
+                                       Text="Exchange Rate:" 
+                                       FontSize="14" 
+                                       TextColor="#7f8c8d"/>
+                                <Label Grid.Column="1" 
+                                       x:Name="ExchangeRateLabel" 
+                                       Text="0.0000 PLN" 
+                                       FontSize="14" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#2c3e50"/>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0" 
+                                       Text="Total Cost:" 
+                                       FontSize="16" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#2c3e50"/>
+                                <Label Grid.Column="1" 
+                                       x:Name="TotalCostLabel" 
+                                       Text="0.00 PLN" 
+                                       FontSize="16" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#27ae60"/>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+
+                    <!-- Trade Button -->
+                    <Button x:Name="TradeButton" 
+                            Text="BUY CURRENCY" 
+                            BackgroundColor="#27ae60" 
+                            TextColor="White" 
+                            CornerRadius="12" 
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            HeightRequest="55"
+                            IsEnabled="False"
+                            Clicked="OnTradeButtonClicked" />
+
+                    <!-- Loading Indicator -->
+                    <ActivityIndicator x:Name="LoadingIndicator" 
+                                      IsVisible="False" 
+                                      IsRunning="False"
+                                      Color="#3498db"
+                                      Margin="0,20,0,0"/>
+
+                    <!-- Status Message -->
+                    <Label x:Name="StatusLabel" 
+                           Text="" 
+                           FontSize="14"
+                           HorizontalOptions="Center"
+                           Margin="0,15,0,0"
+                           IsVisible="False"/>
+
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

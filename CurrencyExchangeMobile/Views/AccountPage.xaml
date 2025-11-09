@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CurrencyExchangeMobile.Views.AccountPage"
+             Title="Account"
+             BackgroundColor="#f8f9fa">
+
+    <ScrollView Padding="20">
+        <StackLayout>
+
+            <!-- User Profile Card -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="25" 
+                   HasShadow="True"
+                   Margin="0,0,0,20">
+
+                <StackLayout>
+                    <!-- User Avatar -->
+                    <Frame BackgroundColor="#3498db" 
+                           CornerRadius="40" 
+                           WidthRequest="80" 
+                           HeightRequest="80" 
+                           HasShadow="False"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,15">
+                        <Label Text="USER" 
+                               FontSize="20" 
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Frame>
+
+                    <!-- User Info -->
+                    <Label x:Name="UsernameLabel" 
+                           Text="Loading..." 
+                           FontSize="20" 
+                           FontAttributes="Bold" 
+                           TextColor="#2c3e50"
+                           HorizontalOptions="Center"/>
+
+                    <Label Text="Currency Trader" 
+                           FontSize="14" 
+                           TextColor="#7f8c8d"
+                           HorizontalOptions="Center"
+                           Margin="0,5,0,0"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Balance and Top Up Card -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="25" 
+                   HasShadow="True"
+                   Margin="0,0,0,20">
+
+                <StackLayout>
+                    <Label Text="Account Balance" 
+                           FontSize="16" 
+                           TextColor="#7f8c8d"
+                           HorizontalOptions="Center"/>
+
+                    <Label x:Name="BalanceLabel" 
+                           Text="Loading..." 
+                           FontSize="32" 
+                           FontAttributes="Bold" 
+                           TextColor="#27ae60"
+                           HorizontalOptions="Center"
+                           Margin="0,5,0,15"/>
+
+                    <!-- Top Up Button -->
+                    <Button x:Name="TopUpToggleButton"
+                            Text="Top Up Account"
+                            BackgroundColor="#27ae60"
+                            TextColor="White"
+                            CornerRadius="10"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            HeightRequest="50"
+                            Clicked="OnTopUpToggleClicked"/>
+
+                    <!-- Top Up Form (Initially Hidden) -->
+                    <StackLayout x:Name="TopUpForm" 
+                                IsVisible="False"
+                                Margin="0,20,0,0">
+
+                        <Label Text="Enter Amount to Add" 
+                               FontSize="14" 
+                               FontAttributes="Bold" 
+                               TextColor="#2c3e50"
+                               Margin="0,0,0,10"/>
+
+                        <Frame BackgroundColor="#f8f9fa" 
+                               CornerRadius="8" 
+                               Padding="0" 
+                               HasShadow="False"
+                               Margin="0,0,0,15">
+                            <Entry x:Name="TopUpAmountEntry" 
+                                   Placeholder="0.00 PLN" 
+                                   PlaceholderColor="#95a5a6"
+                                   TextColor="#2c3e50"
+                                   BackgroundColor="Transparent"
+                                   Keyboard="Numeric"
+                                   FontSize="16"/>
+                        </Frame>
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                            <Button Grid.Column="0"
+                                    Text="Cancel"
+                                    BackgroundColor="#95a5a6"
+                                    TextColor="White"
+                                    CornerRadius="8"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    Clicked="OnTopUpCancelClicked"/>
+
+                            <Button Grid.Column="1"
+                                    x:Name="ConfirmTopUpButton"
+                                    Text="Confirm"
+                                    BackgroundColor="#27ae60"
+                                    TextColor="White"
+                                    CornerRadius="8"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    Clicked="OnTopUpConfirmClicked"/>
+                        </Grid>
+
+                        <!-- Top Up Loading -->
+                        <ActivityIndicator x:Name="TopUpLoadingIndicator" 
+                                          IsVisible="False" 
+                                          IsRunning="False"
+                                          Color="#27ae60"
+                                          Margin="0,15,0,0"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!-- Account Options -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="0" 
+                   HasShadow="True"
+                   Margin="0,0,0,20">
+
+                <StackLayout>
+
+                    <!-- Transaction History -->
+                    <Grid Padding="20" ColumnDefinitions="Auto,*,Auto">
+                        <Label Grid.Column="0" 
+                               Text="[H]" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               TextColor="#3498db"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1" 
+                               Text="Transaction History" 
+                               FontSize="16" 
+                               TextColor="#2c3e50"
+                               VerticalOptions="Center"
+                               Margin="15,0,0,0"/>
+                        <Label Grid.Column="2" 
+                               Text=">" 
+                               FontSize="20" 
+                               TextColor="#bdc3c7"
+                               VerticalOptions="Center"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTransactionHistoryTapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+
+                    <BoxView BackgroundColor="#f1f2f6" 
+                             HeightRequest="1" 
+                             Margin="20,0,20,0"/>
+
+                    <!-- Settings -->
+                    <Grid Padding="20" ColumnDefinitions="Auto,*,Auto">
+                        <Label Grid.Column="0" 
+                               Text="[S]" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               TextColor="#3498db"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1" 
+                               Text="Settings" 
+                               FontSize="16" 
+                               TextColor="#2c3e50"
+                               VerticalOptions="Center"
+                               Margin="15,0,0,0"/>
+                        <Label Grid.Column="2" 
+                               Text=">" 
+                               FontSize="20" 
+                               TextColor="#bdc3c7"
+                               VerticalOptions="Center"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSettingsTapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+
+                    <BoxView BackgroundColor="#f1f2f6" 
+                             HeightRequest="1" 
+                             Margin="20,0,20,0"/>
+
+                    <!-- Help and Support -->
+                    <Grid Padding="20" ColumnDefinitions="Auto,*,Auto">
+                        <Label Grid.Column="0" 
+                               Text="[?]" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               TextColor="#3498db"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1" 
+                               Text="Help and Support" 
+                               FontSize="16" 
+                               TextColor="#2c3e50"
+                               VerticalOptions="Center"
+                               Margin="15,0,0,0"/>
+                        <Label Grid.Column="2" 
+                               Text=">" 
+                               FontSize="20" 
+                               TextColor="#bdc3c7"
+                               VerticalOptions="Center"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHelpTapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+
+                    <BoxView BackgroundColor="#f1f2f6" 
+                             HeightRequest="1" 
+                             Margin="20,0,20,0"/>
+
+                    <!-- Logout -->
+                    <Grid Padding="20" ColumnDefinitions="Auto,*">
+                        <Label Grid.Column="0" 
+                               Text="[X]" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               TextColor="#e74c3c"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1" 
+                               Text="Logout" 
+                               FontSize="16" 
+                               TextColor="#e74c3c"
+                               VerticalOptions="Center"
+                               Margin="15,0,0,0"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLogoutTapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+
+                </StackLayout>
+            </Frame>
+
+            <!-- App Info -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+
+                <StackLayout>
+                    <Label Text="Currency Exchange Mobile" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           TextColor="#2c3e50"
+                           HorizontalOptions="Center"/>
+
+                    <Label Text="Version 1.0.0" 
+                           FontSize="12" 
+                           TextColor="#7f8c8d"
+                           HorizontalOptions="Center"
+                           Margin="0,5,0,0"/>
+
+                    <Label Text="Powered by NBP Exchange Rates" 
+                           FontSize="12" 
+                           TextColor="#7f8c8d"
+                           HorizontalOptions="Center"
+                           Margin="0,5,0,0"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Status Message -->
+            <Label x:Name="StatusLabel" 
+                   Text="" 
+                   FontSize="14"
+                   HorizontalOptions="Center"
+                   Margin="0,15,0,0"
+                   IsVisible="False"/>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

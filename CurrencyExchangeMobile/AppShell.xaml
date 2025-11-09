@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="CurrencyExchangeMobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:CurrencyExchangeMobile.Views"
+    Title="Currency Exchange"
+    BackgroundColor="#3498db">
+
+    <!-- Tab Bar with Navigation -->
+    <TabBar>
+
+        <!-- Dashboard Tab -->
+        <ShellContent
+            Title="Dashboard"
+            Icon="home.png"
+            ContentTemplate="{DataTemplate local:DashboardPage}"
+            Route="dashboard" />
+
+        <!-- Exchange Rates Tab -->
+        <ShellContent
+            Title="Rates"
+            Icon="chart.png"
+            ContentTemplate="{DataTemplate local:RatesPage}"
+            Route="rates" />
+
+        <!-- Trade Tab -->
+        <ShellContent
+            Title="Trade"
+            Icon="swap.png"
+            ContentTemplate="{DataTemplate local:TradePage}"
+            Route="trade" />
+
+        <!-- Account Tab -->
+        <ShellContent
+            Title="Account"
+            Icon="person.png"
+            ContentTemplate="{DataTemplate local:AccountPage}"
+            Route="account" />
+
+    </TabBar>
+
+</Shell>

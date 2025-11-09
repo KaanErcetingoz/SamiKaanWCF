@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SamiKaanWCF.Service.UserService" CodeBehind="UserService.svc.cs" %>
